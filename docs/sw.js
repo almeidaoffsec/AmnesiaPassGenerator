@@ -1,14 +1,15 @@
-const CACHE_NAME = "apg-static-v3";
+const CACHE_NAME = "apg-static-v4";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
   "./style.css",
   "./script.js",
   "./crypto-js.min.js",
-  "./almeida-logo.png",
   "./Amnesia-Logo_192.png",
   "./Amnesia-Logo_512.png",
-  "./manifest.json"
+  "./manifest.json",
+  "./assets/brand/almeidaoffsec_logo_light_H.svg",
+  "./assets/brand/Logo.svg"
 ];
 const HTML_REQUEST = "./index.html";
 

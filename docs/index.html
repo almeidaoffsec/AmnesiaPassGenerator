@@ -1,21 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amnesia Pass Generator</title>
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#00E5C8">
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="Amnesia-Logo_192.ico" type="image/x-icon">
+    <link rel="icon" href="assets/brand/Logo.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="Amnesia-Logo_192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <img src="almeida-logo.png" alt="Almeida Logo" class="app-logo">
 
-    <div class="main-wrapper">
+    <!-- ============ HEADER (almeidaoffsec brand) ============ -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#gerador" class="logo-mark">
+                <img src="assets/brand/almeidaoffsec_logo_light_H.svg" alt="almeidaoffsec" class="header-logo">
+                <span class="logo-text">
+                    <span class="name">Amnesia Pass Generator</span>
+                    <span class="tagline">by almeidaoffsec</span>
+                </span>
+            </a>
+
+            <div class="nav-wrapper">
+                <button id="navToggle" class="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navPanel">☰</button>
+                <nav id="navPanel" class="nav-panel hidden">
+                    <a href="#gerador" class="active">Gerador</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer" class="nav-cta">GitHub</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
         <!-- Painel Esquerdo: Gerador -->
-        <div class="container generator-panel">
+        <div class="container card generator-panel" id="gerador">
             <h1>Amnesia Pass Generator</h1>
 
             <div class="input-group">
@@ -76,7 +99,7 @@
                 <p class="tip">MD5 existe apenas para compatibilidade e não é recomendado para novas senhas.</p>
             </div>
 
-            <button id="generateBtn">Gerar Senha</button>
+            <button class="btn-primary" id="generateBtn">Gerar Senha</button>
             <p class="install-hint">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
 
             <div class="output-group">
@@ -85,15 +108,15 @@
                     <input type="password" id="result" class="result-field" readonly>
                     <button type="button" class="toggle-btn" data-target="result" aria-label="Mostrar/ocultar senha gerada"></button>
                 </div>
-                <button type="button" class="copy-btn copy-btn-below" id="copyResultBtn" aria-label="Copiar senha gerada">Copiar</button>
+                <button type="button" class="btn-secondary copy-btn-below" id="copyResultBtn" aria-label="Copiar senha gerada">Copiar</button>
                 <p id="resultLengthHint" class="install-hint" style="display: none;"></p>
             </div>
         </div>
 
         <!-- Painel Direito: Informações -->
-        <div class="container info-panel">
+        <div class="container card info-panel" id="sobre">
             <h2>Sobre a aplicação</h2>
-            
+
             <p>
                 O <strong>Amnesia Pass Generator</strong> é um gerador de senhas determinístico. Ele cria hashes iterativos baseados em uma palavra-chave que você fornece.
             </p>
@@ -131,7 +154,72 @@
                 2) Se usar a versão CLI, cuide com histórico de terminal e clipboard: evite deixar a seed/salt expostas e limpe conteúdos sensíveis.
             </p>
         </div>
-    </div>
+    </main>
+
+    <!-- ============ FOOTER (almeidaoffsec brand) ============ -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+
+                <div class="footer-brand">
+                    <a href="#gerador" class="logo-mark">
+                        <img src="assets/brand/Logo.svg" alt="almeidaoffsec" class="footer-logo">
+                    </a>
+                    <p>Pentester web com raízes em infra e redes.</p>
+                </div>
+
+                <div class="footer-col">
+                    <p class="label">Navegação</p>
+                    <ul>
+                        <li><a href="#gerador">Gerador</a></li>
+                        <li><a href="#sobre">Sobre</a></li>
+                        <li><a href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer">Código-fonte</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <p class="label">Redes</p>
+                    <div class="social-row">
+
+                        <a class="social-link" href="https://instagram.com/almeidaoffsec" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>
+                            Instagram
+                        </a>
+
+                        <a class="social-link" href="https://linkedin.com/in/almeidaoffsec" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="9.5" x2="7.5" y2="16.5"/><circle cx="7.5" cy="6.7" r="0.4" fill="currentColor" stroke="none"/><path d="M11.5 16.5v-4.2c0-1.4 1-2.3 2.3-2.3s2.2.9 2.2 2.3v4.2"/><line x1="11.5" y1="9.5" x2="11.5" y2="16.5"/></svg>
+                            LinkedIn
+                        </a>
+
+                        <a class="social-link" href="https://github.com/almeidaoffsec" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 0 0-2.8 17.6c.4.1.6-.2.6-.4v-1.6c-2.5.5-3-1.1-3-1.1-.4-1-1-1.3-1-1.3-.9-.6 0-.6 0-.6 1 .1 1.5 1 1.5 1 .8 1.5 2.2 1 2.8.8.1-.6.3-1 .6-1.3-2-.2-4.1-1-4.1-4.4 0-1 .3-1.7.9-2.4-.1-.2-.4-1.1.1-2.3 0 0 .8-.3 2.5 1a8.6 8.6 0 0 1 4.6 0c1.8-1.2 2.5-1 2.5-1 .5 1.2.2 2.1.1 2.3.6.7.9 1.5.9 2.4 0 3.4-2.1 4.2-4.1 4.4.3.3.6.8.6 1.7v2.5c0 .2.2.5.6.4A9 9 0 0 0 12 3z"/></svg>
+                            GitHub
+                        </a>
+
+                        <a class="social-link" href="https://tiktok.com/@almeidaoffsec" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 4c.3 2 1.7 3.6 4 3.9V11c-1.5 0-2.9-.4-4-1.2v5.6a5 5 0 1 1-4-4.9v3a2 2 0 1 0 2 2V4h2z"/></svg>
+                            TikTok
+                        </a>
+
+                        <a class="social-link" href="https://tryhackme.com/p/almeidaoffsec" target="_blank" rel="noopener noreferrer">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.5 7.7 8 9 4.5-1.3 8-4 8-9V7l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+                            TryHackMe
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copy">© 2026 almeidaoffsec — <span class="accent">root@security:~$</span> all rights reserved</p>
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    disponível para projetos
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Inclui a biblioteca crypto-js localmente para suporte offline -->
     <script src="crypto-js.min.js"></script>

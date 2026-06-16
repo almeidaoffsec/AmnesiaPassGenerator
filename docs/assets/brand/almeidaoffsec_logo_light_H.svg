@@ -5,9 +5,9 @@
    version="1.1"
    id="svg1"
    width="1254"
-   height="1254"
-   viewBox="0 0 1254 1254"
-   sodipodi:docname="almeidaoffsec_logo_light.svg"
+   height="500"
+   viewBox="0 0 1254 500"
+   sodipodi:docname="almeidaoffsec_logo_light_H.svg"
    inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
    inkscape:export-filename="almeidaoffsec_logo.png"
    inkscape:export-xdpi="96"
@@ -29,21 +29,21 @@
      inkscape:deskcolor="#505050"
      inkscape:zoom="0.67224881"
      inkscape:cx="635.92526"
-     inkscape:cy="622.53736"
-     inkscape:window-width="1920"
-     inkscape:window-height="1052"
+     inkscape:cy="444.03202"
+     inkscape:window-width="3840"
+     inkscape:window-height="2132"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="g1"
      showguides="true">
     <sodipodi:guide
-       position="559.61307,627.29635"
+       position="-124.95374,248.60498"
        orientation="0,-1"
        id="guide1"
        inkscape:locked="false" />
     <sodipodi:guide
-       position="624.86746,664.90915"
+       position="624.86746,110.90915"
        orientation="1,0"
        id="guide2"
        inkscape:locked="false" />
@@ -61,7 +61,7 @@
        y="-2.965246" />
     <g
        id="g43"
-       transform="matrix(1.9670536,0,0,1.9670536,-606.91081,-272.67736)">
+       transform="matrix(1.5541244,0,0,1.5541244,-717.98095,-413.65239)">
       <path
          style="fill:#00e5c8;fill-opacity:1"
          d="m 589.82645,459.13374 h 57.45746 l -21.95742,26.69077 H 575.232 Z"
@@ -77,25 +77,25 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-size:117.59px;writing-mode:lr-tb;direction:ltr;display:none;fill:#ffffff;stroke-width:1.22489"
-       x="380.42282"
-       y="948.79333"
+       style="font-size:147.995px;writing-mode:lr-tb;direction:ltr;display:inline;fill:#ffffff;stroke-width:1.5416"
+       x="460.88708"
+       y="250.94821"
        id="text21"><tspan
          id="tspan21"
-         x="380.42282"
-         y="948.79333"
          sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:117.59px;font-family:'Space Grotesk';-inkscape-font-specification:'Space Grotesk Bold';fill:#ffffff;stroke-width:1.22489">ALMEIDA</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:147.995px;font-family:'Space Grotesk';-inkscape-font-specification:'Space Grotesk Bold';fill:#ffffff;stroke-width:1.5416"
+         x="460.88708"
+         y="250.94821">ALMEIDA</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.6667px;font-family:abnes;-inkscape-font-specification:abnes;writing-mode:lr-tb;direction:ltr;display:none;fill:#4a9eff;fill-opacity:1"
-       x="417.30692"
-       y="1000.8044"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:61.5876px;font-family:abnes;-inkscape-font-specification:abnes;writing-mode:lr-tb;direction:ltr;display:inline;fill:#4a9eff;fill-opacity:1;stroke-width:1.44346"
+       x="465.41611"
+       y="330.99176"
        id="text1"><tspan
          sodipodi:role="line"
          id="tspan1"
-         x="417.30692"
-         y="1000.8044"
-         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:42.6667px;font-family:'Space Grotesk';-inkscape-font-specification:'Space Grotesk Semi-Bold';fill:#4a9eff;fill-opacity:1">OFFENSIVE SECURITY</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:61.5876px;font-family:'Space Grotesk';-inkscape-font-specification:'Space Grotesk Semi-Bold';fill:#4a9eff;fill-opacity:1;stroke-width:1.44346"
+         x="465.41611"
+         y="330.99176">OFFENSIVE SECURITY</tspan></text>
   </g>
 </svg>

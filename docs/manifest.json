@@ -6,8 +6,8 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#10b981",
+  "background_color": "#0A0E1A",
+  "theme_color": "#00E5C8",
   "icons": [
     {
       "src": "Amnesia-Logo_192.png",
