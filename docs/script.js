@@ -1,35 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const navToggle = document.getElementById('navToggle');
-    const navPanel = document.getElementById('navPanel');
-
-    if (navToggle && navPanel) {
-        const closeNavPanel = () => {
-            navPanel.classList.add('hidden');
-            navToggle.setAttribute('aria-expanded', 'false');
-        };
-
-        navToggle.addEventListener('click', (event) => {
-            event.stopPropagation();
-            const isOpen = !navPanel.classList.contains('hidden');
-            navPanel.classList.toggle('hidden', isOpen);
-            navToggle.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-        });
-
-        document.addEventListener('click', (event) => {
-            if (!navPanel.contains(event.target) && !navToggle.contains(event.target)) {
-                closeNavPanel();
-            }
-        });
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') closeNavPanel();
-        });
-
-        navPanel.querySelectorAll('a').forEach((link) => {
-            link.addEventListener('click', closeNavPanel);
-        });
-    }
-
     const keywordInput = document.getElementById('keyword');
     const serviceInput = document.getElementById('service');
     const numCharsInput = document.getElementById('numChars');

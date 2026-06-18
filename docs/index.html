@@ -3,226 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amnesia Pass Generator</title>
+    <title>Amnesia Pass Generator — almeidaoffsec</title>
+    <meta name="description" content="Gerador de senhas determinístico baseado em hash. Sem armazenamento, sem servidor — 100% client-side.">
     <meta name="theme-color" content="#00E5C8">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" href="assets/brand/Logo.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/brand/almeidaoffsec-icon-192.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/css/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/css/components.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-page="tools">
 
-    <!-- ============ HEADER (almeidaoffsec brand) ============ -->
-    <header class="site-header">
-        <div class="header-inner">
-            <a href="#gerador" class="logo-mark">
-                <img src="assets/brand/almeidaoffsec_logo_light_H.svg" alt="almeidaoffsec" class="header-logo">
-                <span class="logo-text">
-                    <span class="name">Amnesia Pass Generator</span>
-                    <span class="tagline">by almeidaoffsec</span>
-                </span>
-            </a>
+    <div id="site-header"></div>
 
-            <div class="nav-wrapper">
-                <button id="navToggle" class="nav-toggle-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="navPanel">☰</button>
-                <nav id="navPanel" class="nav-panel hidden">
-                    <a href="#gerador" class="active">Gerador</a>
-                    <a href="#sobre">Sobre</a>
-                    <a href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer" class="nav-cta">GitHub</a>
-                </nav>
-            </div>
-        </div>
-    </header>
-
-    <main class="main-wrapper">
-        <!-- Painel Esquerdo: Gerador -->
-        <div class="container card generator-panel" id="gerador">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <span class="label">Ferramenta</span>
             <h1>Amnesia Pass Generator</h1>
-
-            <div class="input-group">
-                <label for="keyword">Palavra-Chave:</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="keyword" placeholder="Sua palavra-chave secreta" autocomplete="off" autocapitalize="off" spellcheck="false">
-                    <button type="button" class="toggle-btn" data-target="keyword" aria-label="Mostrar/ocultar palavra-chave"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="service">Salt/Serviço (opcional):</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="service" placeholder="Ex.: github, email, banco" autocomplete="off" autocapitalize="off" spellcheck="false">
-                    <button type="button" class="toggle-btn" data-target="service" aria-label="Mostrar/ocultar salt/serviço"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="numChars">Número de Caracteres (opcional):</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="numChars" inputmode="numeric" pattern="[0-9]*" placeholder="Deixe em branco para hash completo" autocomplete="off">
-                    <button type="button" class="toggle-btn" data-target="numChars" aria-label="Mostrar/ocultar número de caracteres"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="iterations">Número de Iterações (padrão: 1):</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="iterations" inputmode="numeric" pattern="[0-9]*" value="1" autocomplete="off">
-                    <button type="button" class="toggle-btn" data-target="iterations" aria-label="Mostrar/ocultar número de iterações"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="prefix">Prefixo (opcional):</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="prefix" placeholder="Ex.: #MeuPrefixo" autocomplete="off" autocapitalize="off" spellcheck="false">
-                    <button type="button" class="toggle-btn" data-target="prefix" aria-label="Mostrar/ocultar prefixo"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="suffix">Sufixo (opcional):</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="suffix" placeholder="Ex.: #MeuSufixo" autocomplete="off" autocapitalize="off" spellcheck="false">
-                    <button type="button" class="toggle-btn" data-target="suffix" aria-label="Mostrar/ocultar sufixo"></button>
-                </div>
-            </div>
-
-            <div class="input-group">
-                <label for="algorithm">Algoritmo:</label>
-                <select id="algorithm">
-                    <option value="MD5">MD5 (não recomendado)</option>
-                    <option value="SHA256" selected>SHA256</option>
-                    <option value="SHA512">SHA512</option>
-                </select>
-                <p class="tip">MD5 existe apenas para compatibilidade e não é recomendado para novas senhas.</p>
-            </div>
-
-            <button class="btn-primary" id="generateBtn">Gerar Senha</button>
-            <p class="install-hint">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
-
-            <div class="output-group">
-                <label for="result">Senha Gerada:</label>
-                <div class="field-with-toggle">
-                    <input type="password" id="result" class="result-field" readonly>
-                    <button type="button" class="toggle-btn" data-target="result" aria-label="Mostrar/ocultar senha gerada"></button>
-                </div>
-                <button type="button" class="btn-secondary copy-btn-below" id="copyResultBtn" aria-label="Copiar senha gerada">Copiar</button>
-                <p id="resultLengthHint" class="install-hint" style="display: none;"></p>
+            <p>Gerador de senhas determinístico baseado em hash. Insira uma palavra-chave e um salt por serviço — a mesma senha é sempre recriada sem precisar armazená-la em lugar nenhum.</p>
+            <div class="hero__actions">
+                <a class="btn-primary" href="#gerador">Usar agora</a>
+                <a class="btn-secondary" href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer">Ver no GitHub</a>
             </div>
         </div>
+    </section>
 
-        <!-- Painel Direito: Informações -->
-        <div class="container card info-panel" id="sobre">
-            <h2>Sobre a aplicação</h2>
+    <!-- FERRAMENTA -->
+    <section id="gerador">
+        <div class="container">
+            <div class="grid-2 tool-grid">
 
-            <p>
-                O <strong>Amnesia Pass Generator</strong> é um gerador de senhas determinístico. Ele cria hashes iterativos baseados em uma palavra-chave que você fornece.
-            </p>
+                <!-- Painel: Gerador -->
+                <div class="card">
+                    <div class="input-group">
+                        <label for="keyword">Palavra-Chave</label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="keyword" placeholder="Sua palavra-chave secreta" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            <button type="button" class="toggle-btn" data-target="keyword" aria-label="Mostrar/ocultar palavra-chave"></button>
+                        </div>
+                    </div>
 
-            <h3>Como funciona?</h3>
-            <p>
-                1. Você insere uma palavra-chave.<br>
-                2. O sistema gera um hash (SHA256 ou SHA512; MD5 está disponível mas não é recomendado).<br>
-                3. O processo se repete pelo número de iterações definido.<br>
-                4. O resultado final é cortado para o tamanho desejado.<br>
-                5. Prefixo e sufixo (se informados) são adicionados ao resultado final.
-            </p>
+                    <div class="input-group">
+                        <label for="service">Salt / Serviço <span class="optional">(opcional)</span></label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="service" placeholder="Ex.: github, email, banco" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            <button type="button" class="toggle-btn" data-target="service" aria-label="Mostrar/ocultar salt/serviço"></button>
+                        </div>
+                    </div>
 
-            <h3>Segurança e Privacidade</h3>
-            <p>
-                Todo o processamento é feito <strong>exclusivamente no seu navegador (Client-Side)</strong>. Nenhuma informação, palavra-chave ou senha gerada é enviada para servidores externos.
-            </p>
+                    <div class="input-group">
+                        <label for="numChars">Número de Caracteres <span class="optional">(opcional)</span></label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="numChars" inputmode="numeric" pattern="[0-9]*" placeholder="Deixe em branco para hash completo" autocomplete="off">
+                            <button type="button" class="toggle-btn" data-target="numChars" aria-label="Mostrar/ocultar número de caracteres"></button>
+                        </div>
+                    </div>
 
-            <div class="warning-box">
-                <strong>⚠️ Aviso sobre Iterações:</strong>
-                <p>
-                    Como o processamento é local (usa o processador do seu dispositivo), definir um número excessivamente alto de iterações (ex: milhões) pode causar lentidão ou travamento temporário do navegador. Para uso comum, valores baixos (1 a 1000) são suficientes e instantâneos.
-                </p>
-            </div>
+                    <div class="input-group">
+                        <label for="iterations">Iterações <span class="optional">(padrão: 1)</span></label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="iterations" inputmode="numeric" pattern="[0-9]*" value="1" autocomplete="off">
+                            <button type="button" class="toggle-btn" data-target="iterations" aria-label="Mostrar/ocultar número de iterações"></button>
+                        </div>
+                    </div>
 
-            <h3>Dica de Uso</h3>
-            <p class="tip">
-                Use os campos de Prefixo e Sufixo para adicionar caracteres especiais e letras maiúsculas sem alterar o hash base.<br>
-                Exemplo: <code>#MeuPrefixo</code> + <code>[hash gerado]</code> + <code>#MeuSufixo</code>
-            </p>
+                    <div class="input-group">
+                        <label for="prefix">Prefixo <span class="optional">(opcional)</span></label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="prefix" placeholder="Ex.: #MeuPrefixo" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            <button type="button" class="toggle-btn" data-target="prefix" aria-label="Mostrar/ocultar prefixo"></button>
+                        </div>
+                    </div>
 
-            <h3>Boas práticas</h3>
-            <p>
-                1) Use uma seed/senha mestra forte (frase longa e pouco óbvia) e um salt diferente para cada serviço.<br>
-                2) Se usar a versão CLI, cuide com histórico de terminal e clipboard: evite deixar a seed/salt expostas e limpe conteúdos sensíveis.
-            </p>
-        </div>
-    </main>
+                    <div class="input-group">
+                        <label for="suffix">Sufixo <span class="optional">(opcional)</span></label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="suffix" placeholder="Ex.: #MeuSufixo" autocomplete="off" autocapitalize="off" spellcheck="false">
+                            <button type="button" class="toggle-btn" data-target="suffix" aria-label="Mostrar/ocultar sufixo"></button>
+                        </div>
+                    </div>
 
-    <!-- ============ FOOTER (almeidaoffsec brand) ============ -->
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-grid">
+                    <div class="input-group">
+                        <label for="algorithm">Algoritmo</label>
+                        <select id="algorithm">
+                            <option value="MD5">MD5 (não recomendado)</option>
+                            <option value="SHA256" selected>SHA256</option>
+                            <option value="SHA512">SHA512</option>
+                        </select>
+                        <p class="field-hint">MD5 existe apenas para compatibilidade e não é recomendado para novas senhas.</p>
+                    </div>
 
-                <div class="footer-brand">
-                    <a href="#gerador" class="logo-mark">
-                        <img src="assets/brand/Logo.svg" alt="almeidaoffsec" class="footer-logo">
-                    </a>
-                    <p>Pentester web com raízes em infra e redes.</p>
-                </div>
+                    <button class="btn-primary generate-btn" id="generateBtn">Gerar Senha</button>
+                    <p class="install-hint">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
 
-                <div class="footer-col">
-                    <p class="label">Navegação</p>
-                    <ul>
-                        <li><a href="#gerador">Gerador</a></li>
-                        <li><a href="#sobre">Sobre</a></li>
-                        <li><a href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer">Código-fonte</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <p class="label">Redes</p>
-                    <div class="social-row">
-
-                        <a class="social-link" href="https://instagram.com/almeidaoffsec" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none"/></svg>
-                            Instagram
-                        </a>
-
-                        <a class="social-link" href="https://linkedin.com/in/almeidaoffsec" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="9.5" x2="7.5" y2="16.5"/><circle cx="7.5" cy="6.7" r="0.4" fill="currentColor" stroke="none"/><path d="M11.5 16.5v-4.2c0-1.4 1-2.3 2.3-2.3s2.2.9 2.2 2.3v4.2"/><line x1="11.5" y1="9.5" x2="11.5" y2="16.5"/></svg>
-                            LinkedIn
-                        </a>
-
-                        <a class="social-link" href="https://github.com/almeidaoffsec" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 0 0-2.8 17.6c.4.1.6-.2.6-.4v-1.6c-2.5.5-3-1.1-3-1.1-.4-1-1-1.3-1-1.3-.9-.6 0-.6 0-.6 1 .1 1.5 1 1.5 1 .8 1.5 2.2 1 2.8.8.1-.6.3-1 .6-1.3-2-.2-4.1-1-4.1-4.4 0-1 .3-1.7.9-2.4-.1-.2-.4-1.1.1-2.3 0 0 .8-.3 2.5 1a8.6 8.6 0 0 1 4.6 0c1.8-1.2 2.5-1 2.5-1 .5 1.2.2 2.1.1 2.3.6.7.9 1.5.9 2.4 0 3.4-2.1 4.2-4.1 4.4.3.3.6.8.6 1.7v2.5c0 .2.2.5.6.4A9 9 0 0 0 12 3z"/></svg>
-                            GitHub
-                        </a>
-
-                        <a class="social-link" href="https://tiktok.com/@almeidaoffsec" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 4c.3 2 1.7 3.6 4 3.9V11c-1.5 0-2.9-.4-4-1.2v5.6a5 5 0 1 1-4-4.9v3a2 2 0 1 0 2 2V4h2z"/></svg>
-                            TikTok
-                        </a>
-
-                        <a class="social-link" href="https://tryhackme.com/p/almeidaoffsec" target="_blank" rel="noopener noreferrer">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4 7v5c0 5 3.5 7.7 8 9 4.5-1.3 8-4 8-9V7l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
-                            TryHackMe
-                        </a>
-
+                    <div class="output-group">
+                        <label for="result">Senha Gerada</label>
+                        <div class="field-with-toggle">
+                            <input type="password" id="result" class="result-field" readonly>
+                            <button type="button" class="toggle-btn" data-target="result" aria-label="Mostrar/ocultar senha gerada"></button>
+                        </div>
+                        <button type="button" class="btn-secondary copy-btn" id="copyResultBtn">Copiar</button>
+                        <p id="resultLengthHint" class="field-hint" style="display: none;"></p>
                     </div>
                 </div>
 
-            </div>
+                <!-- Painel: Informações -->
+                <div class="info-stack" id="sobre">
 
-            <div class="footer-bottom">
-                <p class="copy">© 2026 almeidaoffsec — <span class="accent">root@security:~$</span> all rights reserved</p>
-                <div class="status-pill">
-                    <span class="status-dot"></span>
-                    disponível para projetos
+                    <div class="card">
+                        <h3>Como funciona</h3>
+                        <p>O <strong>Amnesia Pass Generator</strong> é determinístico: insira sempre a mesma palavra-chave e o mesmo salt e a mesma senha será recriada — sem banco de dados, sem nuvem.</p>
+                        <ol class="steps-list">
+                            <li>Insira a palavra-chave e, opcionalmente, um salt por serviço.</li>
+                            <li>O sistema gera um hash (SHA256 ou SHA512; MD5 apenas para compatibilidade).</li>
+                            <li>O processo se repete pelo número de iterações definido.</li>
+                            <li>O resultado é truncado para o número de caracteres desejado.</li>
+                            <li>Prefixo e sufixo são adicionados ao resultado final.</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h3>Segurança e Privacidade</h3>
+                        <p>Todo o processamento é feito <strong>exclusivamente no seu navegador</strong>. Nenhuma informação é enviada para servidores externos.</p>
+                        <div class="warning-box">
+                            <strong>Aviso sobre Iterações</strong>
+                            <p>Valores excessivamente altos (ex: milhões) podem causar lentidão ou travamento temporário. Para uso comum, valores de 1 a 1000 são instantâneos.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>Dica de Uso</h3>
+                        <p>Use prefixo e sufixo para adicionar caracteres especiais e maiúsculas sem alterar o hash base.</p>
+                        <div class="terminal-block">
+                            <div class="terminal-header">
+                                <span class="terminal-dot" style="background:#FF4D6D"></span>
+                                <span class="terminal-dot" style="background:#FFB347"></span>
+                                <span class="terminal-dot" style="background:#39D353"></span>
+                                <span class="terminal-title">resultado</span>
+                            </div>
+                            <pre class="terminal-body"><code>#MeuPrefixo + [hash gerado] + #MeuSufixo</code></pre>
+                        </div>
+                        <p style="margin-top: 1rem;">Use uma seed mestra forte (frase longa) e um salt diferente para cada serviço.</p>
+                    </div>
+
                 </div>
+
             </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- Inclui a biblioteca crypto-js localmente para suporte offline -->
+    <!-- STACK -->
+    <section>
+        <div class="container">
+            <span class="label">Stack</span>
+            <h2>Tecnologias</h2>
+            <div class="tags" style="margin-top: 1rem;">
+                <span class="badge badge--info">JavaScript</span>
+                <span class="badge badge--info">CryptoJS</span>
+                <span class="badge badge--info">PWA</span>
+                <span class="badge badge--info">Bash</span>
+                <span class="badge badge--low">Client-side only</span>
+            </div>
+        </div>
+    </section>
+
+    <div id="site-footer"></div>
+
     <script src="crypto-js.min.js"></script>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/js/site-chrome.js"></script>
 </body>
 </html>
