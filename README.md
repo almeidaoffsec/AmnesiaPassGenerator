@@ -57,13 +57,50 @@ Hash completo (sem truncamento), iteração padrão:
 Para não gravar a palavra-chave no histórico do Bash (`HISTCONTROL=ignoreboth` no `~/.bashrc`), inicie o comando com um espaço:
 
 ```bash
- ./amnesiapassgen.sh -p "minhasenhasecreta" -a sha512 -c 32 -i 5 -s "banco"
+ ./amnesiapassgen.sh -p "minhasenhasecreta" -c 32 -i 5 -s "banco"
 ```
+
+### Descriptografar perfis exportados da versão web
+
+O script pode ler o arquivo `.json` exportado pela versão web, descriptografar um perfil e gerar a senha correspondente em um único comando:
+
+```bash
+./amnesiapassgen.sh -d -f apg-profiles-2025-06-19.json -n "GitHub" -p "minhasenhamestra"
+```
+
+**Flags do modo descriptografar:**
+
+| Flag | Descrição | Obrigatório |
+|------|-----------|-------------|
+| `-d` | Ativa o modo de descriptografia | Sim |
+| `-f` | Caminho para o arquivo `.json` exportado | Sim |
+| `-n` | Nome do perfil a descriptografar | Sim |
+| `-p` | Palavra-chave usada ao salvar o perfil na web | Sim |
+| `-c` `-i` `-x` `-y` | Sobrepõem os valores do perfil, se necessário | Não |
+
+Saída de exemplo:
+
+```
+Perfil 'GitHub' descriptografado com sucesso.
+  Salt/Serviço : github
+  Caracteres   : 40
+  Iterações    : 10
+  Prefixo      : #T
+  Sufixo       : #
+
+Passwd: #T3a9f...c12e#
+Length: 44
+```
+
+**Requisitos adicionais para o modo descriptografar:**
+- Python 3
+- Pacote `cryptography`: `pip install cryptography`
 
 ### Requisitos
 
 - Bash
 - Coreutils (`sha512sum`)
+- Python 3 + `pip install cryptography` *(somente para descriptografar perfis)*
 
 ---
 
