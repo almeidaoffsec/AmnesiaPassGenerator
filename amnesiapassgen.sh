@@ -51,31 +51,24 @@ ITERATIONS=${ITERATIONS:-1}
 if [ -z "$KEYWORD" ] || [ -z "$ALGO" ]; then
     echo "Uso: $0 -p <palavra_chave> -a <algoritmo> [-c <num_caracteres>] [-i <num_iteracoes>] [-s <salt_servico>] [-x <prefixo>] [-y <sufixo>]"
     echo "  -p: Palavra-chave (seed) para gerar a senha (obrigatório)"
-    echo "  -a: Algoritmo de hash (obrigatório: md5 (não recomendado), sha256, sha512)"
+    echo "  -a: Algoritmo de hash (obrigatório: sha512)"
     echo "  -c: Número de caracteres (opcional, se omitido, retorna o hash completo)"
     echo "  -i: Número de iterações (opcional, padrão: 1)"
     echo "  -s: Salt ou identificador do serviço (opcional) adicionado à palavra-chave"
     echo "  -x: Prefixo (opcional) adicionado ao resultado final"
     echo "  -y: Sufixo (opcional) adicionado ao resultado final"
     echo ""
-    echo "Exemplo: $0 -p minha_senha -a sha256 -c 10 -i 5 -s gmail -x '#meu' -y '#sobrenome'"
+    echo "Exemplo: $0 -p minha_senha -a sha512 -c 10 -i 5 -s gmail -x '#meu' -y '#sobrenome'"
     exit 1
 fi
 
 # Selecionar comando baseada no algoritmo
 case $ALGO in
-    md5)
-        HASH_CMD="md5sum"
-        echo "Aviso: MD5 é considerado fraco. Prefira sha256 ou sha512." >&2
-        ;;
-    sha256)
-        HASH_CMD="sha256sum"
-        ;;
     sha512)
         HASH_CMD="sha512sum"
         ;;
     *)
-        echo "Algoritmo inválido. Use: md5, sha256 ou sha512"
+        echo "Algoritmo inválido. Use: sha512"
         exit 1
         ;;
 esac

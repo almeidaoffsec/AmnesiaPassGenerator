@@ -1,70 +1,104 @@
 # Amnesia Pass Generator
 
-Um gerador de senhas determinístico simples em Bash que cria hashes iterativos baseados em uma palavra-chave.
-Este repositório também inclui uma versão web em `docs/`, compatível com GitHub Pages e com suporte a PWA (uso offline).  
+Um gerador de senhas determinístico baseado em hash SHA512 iterativo. Dado uma palavra-chave e um salt por serviço, a mesma senha é sempre reproduzida sem precisar armazená-la.
+
+Este repositório inclui duas implementações independentes do mesmo algoritmo:
+
+- `amnesiapassgen.sh` — CLI em Bash usando `sha512sum` do coreutils.
+- `docs/` — Aplicação web estática (vanilla JS + CryptoJS), publicada via GitHub Pages e instalável como PWA offline.
+
 **GitHub Page:** [AmnesiaPassGenerator](https://brandonalmeida.github.io/AmnesiaPassGenerator)
+
+---
 
 ## Como funciona
 
-O script recebe uma palavra-chave, gera um hash (MD5 - não recomendado, SHA256 ou SHA512), repete esse processo por um número definido de iterações para garantir entropia, e corta o resultado para um tamanho específico no final. Isso permite gerar senhas reproduzíveis (determinísticas) e seguras.
+1. Concatena a palavra-chave com o salt do serviço no formato `keyword:salt` (se salt for fornecido).
+2. Calcula SHA512 do resultado e re-hasha o hex digest por N iterações.
+3. Trunca o hash final para o número de caracteres desejado (ou retorna o hash completo).
+4. Aplica prefixo e sufixo opcionais ao resultado.
 
-## Uso
+O processo é determinístico: os mesmos parâmetros sempre produzem a mesma saída.
 
-```bash
-./amnesiapassgen.sh -p <palavra_chave> -a <algoritmo> [-c <num_caracteres>] [-i <num_iteracoes>] [-s <salt_servico>] [-x <prefixo>] [-y <sufixo>]
-```
+---
 
-### Parâmetros (Flags)
-
-*   `-p <palavra>`: **Obrigatório.** A string inicial (seed/senha mestra).
-*   `-a <algo>`: **Obrigatório.** O algoritmo de hash a ser utilizado (`md5` - não recomendado, `sha256`, `sha512`).
-*   `-c <num>`: O comprimento desejado da senha final. **Opcional.** Se omitido, o hash completo será retornado.
-*   `-i <num>`: Quantas vezes o processo de hash será repetido (mais iterações = mais demora = mais seguro contra força bruta). **Opcional.** Padrão: `1`.
-*   `-s <texto>`: Um salt/identificador do serviço (ex.: `github`, `gmail`) concatenado à palavra-chave antes do hashing. **Opcional**, mas recomendado para evitar reutilizar a mesma senha base em serviços diferentes.
-*   `-x <texto>`: Prefixo **opcional** adicionado ao resultado final.
-*   `-y <texto>`: Sufixo **opcional** adicionado ao resultado final.
-
-## Exemplos
-
-Gerar uma senha de 10 caracteres, com 5 iterações usando SHA256:
+## CLI — Uso
 
 ```bash
-./amnesiapassgen.sh -p "minhasenhasecreta" -a sha256 -c 10 -i 5 -s "github" -x "#meunome" -y "#sobrenome"
+./amnesiapassgen.sh -p <palavra_chave> -a sha512 [-c <num_caracteres>] [-i <num_iteracoes>] [-s <salt_servico>] [-x <prefixo>] [-y <sufixo>]
 ```
 
-Gerar uma senha de 32 caracteres, com 1 iteração usando SHA512:
+### Parâmetros
+
+| Flag | Descrição | Obrigatório |
+|------|-----------|-------------|
+| `-p` | Palavra-chave (seed mestra) | Sim |
+| `-a` | Algoritmo — apenas `sha512` | Sim |
+| `-c` | Comprimento da senha final (sem valor = hash completo) | Não |
+| `-i` | Número de iterações (padrão: `1`) | Não |
+| `-s` | Salt / identificador do serviço (ex.: `github`, `gmail`) | Não |
+| `-x` | Prefixo adicionado ao resultado final | Não |
+| `-y` | Sufixo adicionado ao resultado final | Não |
+
+### Exemplos
+
+Senha de 40 caracteres com 10 iterações e salt de serviço:
 
 ```bash
-./amnesiapassgen.sh -p "admin" -a sha512 -c 32 -i 1
+./amnesiapassgen.sh -p "minhasenhasecreta" -a sha512 -c 40 -i 10 -s "github" -x "#T" -y "#"
 ```
 
-Gerar o hash completo (sem corte), com 1 iteração (padrão) usando SHA512:
+Hash completo (sem truncamento), iteração padrão:
 
 ```bash
-./amnesiapassgen.sh -p "umaoutrasenha" -a sha512 -s "meuservico"
+./amnesiapassgen.sh -p "minhasenhasecreta" -a sha512 -s "email"
 ```
 
-Gerar uma senha curta com MD5 (apenas para compatibilidade; não recomendado):
+Para não gravar a palavra-chave no histórico do Bash (`HISTCONTROL=ignoreboth` no `~/.bashrc`), inicie o comando com um espaço:
 
 ```bash
-./amnesiapassgen.sh -p "legacy" -a md5 -c 16 -i 1
+ ./amnesiapassgen.sh -p "minhasenhasecreta" -a sha512 -c 32 -i 5 -s "banco"
 ```
 
-## Requisitos
+### Requisitos
 
-*   Bash
-*   Coreutils (md5sum, sha256sum, sha512sum)
+- Bash
+- Coreutils (`sha512sum`)
+
+---
 
 ## Versão Web (GitHub Pages + PWA)
 
-A aplicação web está em `docs/` e pode ser publicada no GitHub Pages. Ela é compatível com PWA, permitindo instalação no celular e uso offline.
+A aplicação web está em `docs/` e pode ser publicada no GitHub Pages. Funciona 100% no navegador — nenhum dado é enviado a servidores. Instalável como app offline via PWA.
 
-### Recursos principais
+### Recursos
 
-*   Funciona 100% no navegador (sem envio de dados para servidores).
-*   Pode ser instalada como app (modo standalone) em dispositivos móveis.
-*   Suporte offline via Service Worker.
-*   Biblioteca CryptoJS é carregada localmente para independência de CDN.
+- Geração de senha idêntica ao CLI (mesmo algoritmo SHA512 iterativo).
+- Todos os campos sensíveis têm toggle show/hide.
+- Instalável como PWA (modo standalone, uso offline via Service Worker).
+- CryptoJS carregado localmente — sem dependência de CDN para a geração de senhas.
+
+### Perfis Salvos
+
+A versão web permite salvar e carregar configurações de senha (perfis) diretamente no `localStorage` do navegador, com criptografia de ponta a ponta.
+
+**O que é salvo:** palavra-chave, salt, número de caracteres, iterações, prefixo, sufixo — tudo cifrado. Nenhum dado sensível fica em texto claro no armazenamento.
+
+**Criptografia usada:**
+- Derivação de chave: **PBKDF2** (SHA-256, 200.000 iterações, salt aleatório de 16 bytes por perfil)
+- Cifra: **AES-GCM-256** (nonce aleatório de 12 bytes por salvamento)
+- A tag de autenticação do GCM garante integridade — uma palavra-chave errada resulta em falha de autenticação, sem vazar dados
+
+**Fluxo de uso:**
+
+1. Preencha o formulário com todos os campos desejados, incluindo a palavra-chave.
+2. Clique em **Salvar Perfil Atual** e dê um nome ao perfil.
+3. Posteriormente, selecione o perfil no dropdown e clique em **Carregar**.
+4. Insira a palavra-chave no modal de descriptografia — todos os campos são restaurados automaticamente.
+
+**Import / Export:**
+
+Os perfis podem ser exportados para um arquivo `.json` (os blobs permanecem cifrados, sem exposição de dados sensíveis) e importados em outro dispositivo ou navegador. Em caso de conflito de nomes, é possível sobrescrever ou ignorar os perfis existentes individualmente.
 
 ### Como publicar no GitHub Pages
 
@@ -79,11 +113,11 @@ A aplicação web está em `docs/` e pode ser publicada no GitHub Pages. Ela é 
 2. No menu do Chrome, toque em **Instalar app**.
 3. O app será adicionado à tela inicial em modo standalone.
 
-## Boas práticas e sugestões de uso
+---
 
-1. Use uma seed/senha mestra forte (frase longa e não óbvia) e um salt por serviço para evitar reutilização direta.
-2. Ao usar o script, cuide para não expor a seed/salt no histórico do terminal ou em clipboards; evite colar em apps não confiáveis.
-3. Para não gravar o comando no histórico do Bash, use `HISTCONTROL=ignoreboth` no `~/.bashrc` e execute com um espaço no início:
-   ```bash
-    ./amnesiapassgen.sh -p "seed" -a sha256 -c 12 -i 5 -s "github"
-   ```
+## Boas práticas
+
+- Use uma palavra-chave longa e não óbvia (frase completa, não uma palavra).
+- Use um salt diferente para cada serviço — evita que a mesma senha base seja reutilizada diretamente.
+- A palavra-chave é o ponto único de falha: se for descoberta, todas as senhas derivadas ficam expostas.
+- Ao usar o CLI, evite expor a palavra-chave no histórico do terminal ou em clipboards de apps não confiáveis.

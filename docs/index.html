@@ -89,17 +89,25 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
-                        <label for="algorithm">Algoritmo</label>
-                        <select id="algorithm">
-                            <option value="MD5">MD5 (não recomendado)</option>
-                            <option value="SHA256" selected>SHA256</option>
-                            <option value="SHA512">SHA512</option>
-                        </select>
-                        <p class="field-hint">MD5 existe apenas para compatibilidade e não é recomendado para novas senhas.</p>
+                    <div class="profile-section">
+                        <label for="profileSelect">Perfis Salvos</label>
+                        <div class="profile-bar">
+                            <select id="profileSelect">
+                                <option value="">— Selecione um perfil —</option>
+                            </select>
+                            <button type="button" class="btn-secondary profile-action-btn" id="loadProfileBtn" disabled>Carregar</button>
+                            <button type="button" class="btn-danger profile-action-btn" id="deleteProfileBtn" disabled>Excluir</button>
+                        </div>
+                        <div class="profile-io">
+                            <button type="button" class="btn-secondary" id="exportProfilesBtn" disabled>Exportar</button>
+                            <button type="button" class="btn-secondary" id="importProfilesBtn">Importar</button>
+                        </div>
+                        <p id="importStatus" class="field-hint profile-io-status"></p>
+                        <input type="file" id="importFileInput" accept=".json,application/json" style="display:none">
                     </div>
 
                     <button class="btn-primary generate-btn" id="generateBtn">Gerar Senha</button>
+                    <button type="button" class="btn-secondary save-profile-btn" id="saveProfileBtn">Salvar Perfil Atual</button>
                     <p class="install-hint">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
 
                     <div class="output-group">
@@ -121,11 +129,26 @@
                         <p>O <strong>Amnesia Pass Generator</strong> é determinístico: insira sempre a mesma palavra-chave e o mesmo salt e a mesma senha será recriada — sem banco de dados, sem nuvem.</p>
                         <ol class="steps-list">
                             <li>Insira a palavra-chave e, opcionalmente, um salt por serviço.</li>
-                            <li>O sistema gera um hash (SHA256 ou SHA512; MD5 apenas para compatibilidade).</li>
+                            <li>O sistema gera um hash SHA512 da entrada.</li>
                             <li>O processo se repete pelo número de iterações definido.</li>
                             <li>O resultado é truncado para o número de caracteres desejado.</li>
                             <li>Prefixo e sufixo são adicionados ao resultado final.</li>
                         </ol>
+                    </div>
+
+                    <div class="card">
+                        <h3>Perfis Salvos</h3>
+                        <p>Salve suas configurações para reutilizá-las sem redigitar tudo. Cada perfil é cifrado com <strong>AES-GCM-256</strong> usando sua própria palavra-chave — nenhum dado sensível fica em texto claro no armazenamento.</p>
+                        <ol class="steps-list">
+                            <li>Preencha os campos e clique em <strong>Salvar Perfil Atual</strong>.</li>
+                            <li>Dê um nome ao perfil (ex.: GitHub, Banco).</li>
+                            <li>Para usar, selecione o perfil no dropdown e clique em <strong>Carregar</strong>.</li>
+                            <li>Insira sua palavra-chave no modal — todos os campos são restaurados.</li>
+                        </ol>
+                        <div class="warning-box">
+                            <strong>Exportar e Importar</strong>
+                            <p>Use <strong>Exportar</strong> para baixar um <code>.json</code> com seus perfis cifrados e <strong>Importar</strong> para restaurá-los em outro dispositivo. O arquivo exportado não contém nenhuma informação em texto claro.</p>
+                        </div>
                     </div>
 
                     <div class="card">
@@ -166,6 +189,7 @@
             <div class="tags" style="margin-top: 1rem;">
                 <span class="badge badge--info">JavaScript</span>
                 <span class="badge badge--info">CryptoJS</span>
+                <span class="badge badge--info">Web Crypto API</span>
                 <span class="badge badge--info">PWA</span>
                 <span class="badge badge--info">Bash</span>
                 <span class="badge badge--low">Client-side only</span>
@@ -174,6 +198,39 @@
     </section>
 
     <div id="site-footer"></div>
+
+    <!-- Modal: Salvar perfil -->
+    <dialog id="saveProfileDialog" aria-labelledby="saveDialogTitle">
+        <h3 id="saveDialogTitle">Salvar Perfil</h3>
+        <p class="dialog-description">Dê um nome para identificar esta configuração. A Palavra-Chave <strong>não</strong> é armazenada — ela será usada apenas para criptografar os demais campos.</p>
+        <div class="input-group">
+            <label for="profileNameInput">Nome do Perfil</label>
+            <input type="text" id="profileNameInput" placeholder="Ex.: GitHub, Microsoft, Banco…" maxlength="50" autocomplete="off" spellcheck="false">
+        </div>
+        <p id="saveProfileError" class="dialog-error" role="alert"></p>
+        <div class="dialog-actions">
+            <button type="button" class="btn-primary" id="confirmSaveProfileBtn">Salvar</button>
+            <button type="button" class="btn-secondary" id="cancelSaveProfileBtn">Cancelar</button>
+        </div>
+    </dialog>
+
+    <!-- Modal: Carregar perfil (descriptografar) -->
+    <dialog id="loadProfileDialog" aria-labelledby="loadDialogTitle">
+        <h3 id="loadDialogTitle">Carregar Perfil</h3>
+        <p class="dialog-description">Insira a Palavra-Chave usada ao salvar este perfil para descriptografá-lo.</p>
+        <div class="input-group">
+            <label for="decryptKeyInput">Palavra-Chave</label>
+            <div class="field-with-toggle">
+                <input type="password" id="decryptKeyInput" placeholder="Sua palavra-chave secreta" autocomplete="off" autocapitalize="off" spellcheck="false">
+                <button type="button" class="toggle-btn" data-target="decryptKeyInput" aria-label="Mostrar/ocultar palavra-chave"></button>
+            </div>
+        </div>
+        <p id="loadProfileError" class="dialog-error" role="alert"></p>
+        <div class="dialog-actions">
+            <button type="button" class="btn-primary" id="confirmLoadProfileBtn">Descriptografar e Carregar</button>
+            <button type="button" class="btn-secondary" id="cancelLoadProfileBtn">Cancelar</button>
+        </div>
+    </dialog>
 
     <script src="crypto-js.min.js"></script>
     <script src="script.js"></script>
