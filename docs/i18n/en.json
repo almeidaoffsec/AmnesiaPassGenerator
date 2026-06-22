@@ -1,0 +1,63 @@
+{
+  "tool.name":             "Amnesia Pass Generator",
+  "tool.hero.description": "Deterministic hash-based password generator. Enter a keyword and a per-service salt — the same password is always recreated without storing it anywhere.",
+  "tool.hero.cta":         "View on GitHub",
+
+  "tool.label.keyword":            "Keyword",
+  "tool.label.service":            "Salt / Service",
+  "tool.label.numchars":           "Number of Characters",
+  "tool.label.iterations":         "Iterations",
+  "tool.label.iterations.default": "(default: 1)",
+  "tool.label.prefix":             "Prefix",
+  "tool.label.suffix":             "Suffix",
+  "tool.label.profiles":           "Saved Profiles",
+  "tool.label.result":             "Generated Password",
+
+  "tool.btn.load":         "Load",
+  "tool.btn.delete":       "Delete",
+  "tool.btn.export":       "Export",
+  "tool.btn.import":       "Import",
+  "tool.btn.generate":     "Generate Password",
+  "tool.btn.save-profile": "Save Current Profile",
+  "tool.btn.copy":         "Copy",
+
+  "tool.hint.install": "Tip: install the app for offline use (browser menu → Install app).",
+
+  "tool.card.how.title": "How it works",
+  "tool.card.how.body":  "Amnesia Pass Generator is deterministic: always enter the same keyword and the same salt and the same password will be recreated — no database, no cloud.",
+  "tool.card.how.step1": "Enter the keyword and, optionally, a per-service salt.",
+  "tool.card.how.step2": "The system generates a SHA512 hash of the input.",
+  "tool.card.how.step3": "The process repeats for the defined number of iterations.",
+  "tool.card.how.step4": "The result is truncated to the desired number of characters.",
+  "tool.card.how.step5": "Prefix and suffix are appended to the final result.",
+
+  "tool.card.profiles.title":         "Saved Profiles",
+  "tool.card.profiles.body":          "Save your settings to reuse them without retyping everything. Each profile is encrypted with AES-GCM-256 using your own keyword — no sensitive data is stored in plain text.",
+  "tool.card.profiles.step1":         "Fill in the fields and click Save Current Profile.",
+  "tool.card.profiles.step2":         "Give the profile a name (e.g.: GitHub, Bank).",
+  "tool.card.profiles.step3":         "To use it, select the profile from the dropdown and click Load.",
+  "tool.card.profiles.step4":         "Enter your keyword in the modal — all fields are restored.",
+  "tool.card.profiles.export.title":  "Export and Import",
+  "tool.card.profiles.export.body":   "Use Export to download a .json file with your encrypted profiles and Import to restore them on another device. The exported file contains no information in plain text.",
+
+  "tool.card.security.title":         "Security & Privacy",
+  "tool.card.security.body":          "All processing is done exclusively in your browser. No information is sent to external servers.",
+  "tool.card.security.warning.title": "Iterations Warning",
+  "tool.card.security.warning.body":  "Excessively high values (e.g.: millions) can cause slowness or temporary freezing. For common use, values from 1 to 1000 are instantaneous.",
+
+  "tool.card.tip.title":  "Usage Tip",
+  "tool.card.tip.body":   "Use prefix and suffix to add special characters and uppercase letters without changing the base hash.",
+  "tool.card.tip.footer": "Use a strong master seed (long passphrase) and a different salt for each service.",
+
+  "tool.modal.save.title":       "Save Profile",
+  "tool.modal.save.description": "Give a name to identify this configuration. The Keyword is not stored — it will only be used to encrypt the other fields.",
+  "tool.modal.save.label":       "Profile Name",
+  "tool.modal.save.btn":         "Save",
+  "tool.modal.save.cancel":      "Cancel",
+
+  "tool.modal.load.title":       "Load Profile",
+  "tool.modal.load.description": "Enter the Keyword used when saving this profile to decrypt it.",
+  "tool.modal.load.label":       "Keyword",
+  "tool.modal.load.btn":         "Decrypt and Load",
+  "tool.modal.load.cancel":      "Cancel"
+}

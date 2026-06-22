@@ -1,4 +1,4 @@
-const CACHE_NAME = "apg-static-v6";
+const CACHE_NAME = "apg-static-v7";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -6,6 +6,8 @@ const STATIC_ASSETS = [
   "./script.js",
   "./crypto-js.min.js",
   "./manifest.json",
+  "./i18n/pt-BR.json",
+  "./i18n/en.json",
   "./assets/brand/almeidaoffsec_logo_light_H.svg",
   "./assets/brand/Logo.svg",
   "./assets/brand/almeidaoffsec-icon-192.png",

@@ -17,19 +17,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/css/components.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-page="tools">
+<body data-page="tools" data-i18n-src="./i18n/">
 
     <div id="site-header"></div>
 
     <!-- HERO -->
     <section class="hero">
         <div class="container">
-            <span class="label">Ferramenta</span>
-            <h1>Amnesia Pass Generator</h1>
-            <p>Gerador de senhas determinístico baseado em hash. Insira uma palavra-chave e um salt por serviço — a mesma senha é sempre recriada sem precisar armazená-la em lugar nenhum.</p>
+            <span class="label" data-i18n="tool.hero.label">Ferramenta</span>
+            <h1 data-i18n="tool.name">Amnesia Pass Generator</h1>
+            <p data-i18n="tool.hero.description">Gerador de senhas determinístico baseado em hash. Insira uma palavra-chave e um salt por serviço — a mesma senha é sempre recriada sem precisar armazená-la em lugar nenhum.</p>
             <div class="hero__actions">
-                <a class="btn-primary" href="#gerador">Usar agora</a>
-                <a class="btn-secondary" href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer">Ver no GitHub</a>
+                <a class="btn-secondary" href="https://github.com/BrandonAlmeida/AmnesiaPassGenerator" target="_blank" rel="noopener noreferrer" data-i18n="tool.hero.cta">Ver no GitHub</a>
             </div>
         </div>
     </section>
@@ -42,7 +41,7 @@
                 <!-- Painel: Gerador -->
                 <div class="card">
                     <div class="input-group">
-                        <label for="keyword">Palavra-Chave</label>
+                        <label for="keyword" data-i18n="tool.label.keyword">Palavra-Chave</label>
                         <div class="field-with-toggle">
                             <input type="password" id="keyword" placeholder="Sua palavra-chave secreta" autocomplete="off" autocapitalize="off" spellcheck="false">
                             <button type="button" class="toggle-btn" data-target="keyword" aria-label="Mostrar/ocultar palavra-chave"></button>
@@ -50,7 +49,10 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="service">Salt / Serviço <span class="optional">(opcional)</span></label>
+                        <label for="service">
+                            <span data-i18n="tool.label.service">Salt / Serviço</span>
+                            <span class="optional" data-i18n="tool.optional">(opcional)</span>
+                        </label>
                         <div class="field-with-toggle">
                             <input type="password" id="service" placeholder="Ex.: github, email, banco" autocomplete="off" autocapitalize="off" spellcheck="false">
                             <button type="button" class="toggle-btn" data-target="service" aria-label="Mostrar/ocultar salt/serviço"></button>
@@ -58,7 +60,10 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="numChars">Número de Caracteres <span class="optional">(opcional)</span></label>
+                        <label for="numChars">
+                            <span data-i18n="tool.label.numchars">Número de Caracteres</span>
+                            <span class="optional" data-i18n="tool.optional">(opcional)</span>
+                        </label>
                         <div class="field-with-toggle">
                             <input type="password" id="numChars" inputmode="numeric" pattern="[0-9]*" placeholder="Deixe em branco para hash completo" autocomplete="off">
                             <button type="button" class="toggle-btn" data-target="numChars" aria-label="Mostrar/ocultar número de caracteres"></button>
@@ -66,7 +71,10 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="iterations">Iterações <span class="optional">(padrão: 1)</span></label>
+                        <label for="iterations">
+                            <span data-i18n="tool.label.iterations">Iterações</span>
+                            <span class="optional" data-i18n="tool.label.iterations.default">(padrão: 1)</span>
+                        </label>
                         <div class="field-with-toggle">
                             <input type="password" id="iterations" inputmode="numeric" pattern="[0-9]*" value="1" autocomplete="off">
                             <button type="button" class="toggle-btn" data-target="iterations" aria-label="Mostrar/ocultar número de iterações"></button>
@@ -74,7 +82,10 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="prefix">Prefixo <span class="optional">(opcional)</span></label>
+                        <label for="prefix">
+                            <span data-i18n="tool.label.prefix">Prefixo</span>
+                            <span class="optional" data-i18n="tool.optional">(opcional)</span>
+                        </label>
                         <div class="field-with-toggle">
                             <input type="password" id="prefix" placeholder="Ex.: #MeuPrefixo" autocomplete="off" autocapitalize="off" spellcheck="false">
                             <button type="button" class="toggle-btn" data-target="prefix" aria-label="Mostrar/ocultar prefixo"></button>
@@ -82,7 +93,10 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="suffix">Sufixo <span class="optional">(opcional)</span></label>
+                        <label for="suffix">
+                            <span data-i18n="tool.label.suffix">Sufixo</span>
+                            <span class="optional" data-i18n="tool.optional">(opcional)</span>
+                        </label>
                         <div class="field-with-toggle">
                             <input type="password" id="suffix" placeholder="Ex.: #MeuSufixo" autocomplete="off" autocapitalize="off" spellcheck="false">
                             <button type="button" class="toggle-btn" data-target="suffix" aria-label="Mostrar/ocultar sufixo"></button>
@@ -90,33 +104,33 @@
                     </div>
 
                     <div class="profile-section">
-                        <label for="profileSelect">Perfis Salvos</label>
+                        <label for="profileSelect" data-i18n="tool.label.profiles">Perfis Salvos</label>
                         <div class="profile-bar">
                             <select id="profileSelect">
                                 <option value="">— Selecione um perfil —</option>
                             </select>
-                            <button type="button" class="btn-secondary profile-action-btn" id="loadProfileBtn" disabled>Carregar</button>
-                            <button type="button" class="btn-danger profile-action-btn" id="deleteProfileBtn" disabled>Excluir</button>
+                            <button type="button" class="btn-secondary profile-action-btn" id="loadProfileBtn" disabled data-i18n="tool.btn.load">Carregar</button>
+                            <button type="button" class="btn-danger profile-action-btn" id="deleteProfileBtn" disabled data-i18n="tool.btn.delete">Excluir</button>
                         </div>
                         <div class="profile-io">
-                            <button type="button" class="btn-secondary" id="exportProfilesBtn" disabled>Exportar</button>
-                            <button type="button" class="btn-secondary" id="importProfilesBtn">Importar</button>
+                            <button type="button" class="btn-secondary" id="exportProfilesBtn" disabled data-i18n="tool.btn.export">Exportar</button>
+                            <button type="button" class="btn-secondary" id="importProfilesBtn" data-i18n="tool.btn.import">Importar</button>
                         </div>
                         <p id="importStatus" class="field-hint profile-io-status"></p>
                         <input type="file" id="importFileInput" accept=".json,application/json" style="display:none">
                     </div>
 
-                    <button class="btn-primary generate-btn" id="generateBtn">Gerar Senha</button>
-                    <button type="button" class="btn-secondary save-profile-btn" id="saveProfileBtn">Salvar Perfil Atual</button>
-                    <p class="install-hint">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
+                    <button class="btn-primary generate-btn" id="generateBtn" data-i18n="tool.btn.generate">Gerar Senha</button>
+                    <button type="button" class="btn-secondary save-profile-btn" id="saveProfileBtn" data-i18n="tool.btn.save-profile">Salvar Perfil Atual</button>
+                    <p class="install-hint" data-i18n="tool.hint.install">Dica: instale o app para uso offline (menu do navegador → Instalar app).</p>
 
                     <div class="output-group">
-                        <label for="result">Senha Gerada</label>
+                        <label for="result" data-i18n="tool.label.result">Senha Gerada</label>
                         <div class="field-with-toggle">
                             <input type="password" id="result" class="result-field" readonly>
                             <button type="button" class="toggle-btn" data-target="result" aria-label="Mostrar/ocultar senha gerada"></button>
                         </div>
-                        <button type="button" class="btn-secondary copy-btn" id="copyResultBtn">Copiar</button>
+                        <button type="button" class="btn-secondary copy-btn" id="copyResultBtn" data-i18n="tool.btn.copy">Copiar</button>
                         <p id="resultLengthHint" class="field-hint" style="display: none;"></p>
                     </div>
                 </div>
@@ -125,44 +139,44 @@
                 <div class="info-stack" id="sobre">
 
                     <div class="card">
-                        <h3>Como funciona</h3>
-                        <p>O <strong>Amnesia Pass Generator</strong> é determinístico: insira sempre a mesma palavra-chave e o mesmo salt e a mesma senha será recriada — sem banco de dados, sem nuvem.</p>
+                        <h3 data-i18n="tool.card.how.title">Como funciona</h3>
+                        <p data-i18n="tool.card.how.body">O Amnesia Pass Generator é determinístico: insira sempre a mesma palavra-chave e o mesmo salt e a mesma senha será recriada — sem banco de dados, sem nuvem.</p>
                         <ol class="steps-list">
-                            <li>Insira a palavra-chave e, opcionalmente, um salt por serviço.</li>
-                            <li>O sistema gera um hash SHA512 da entrada.</li>
-                            <li>O processo se repete pelo número de iterações definido.</li>
-                            <li>O resultado é truncado para o número de caracteres desejado.</li>
-                            <li>Prefixo e sufixo são adicionados ao resultado final.</li>
+                            <li data-i18n="tool.card.how.step1">Insira a palavra-chave e, opcionalmente, um salt por serviço.</li>
+                            <li data-i18n="tool.card.how.step2">O sistema gera um hash SHA512 da entrada.</li>
+                            <li data-i18n="tool.card.how.step3">O processo se repete pelo número de iterações definido.</li>
+                            <li data-i18n="tool.card.how.step4">O resultado é truncado para o número de caracteres desejado.</li>
+                            <li data-i18n="tool.card.how.step5">Prefixo e sufixo são adicionados ao resultado final.</li>
                         </ol>
                     </div>
 
                     <div class="card">
-                        <h3>Perfis Salvos</h3>
-                        <p>Salve suas configurações para reutilizá-las sem redigitar tudo. Cada perfil é cifrado com <strong>AES-GCM-256</strong> usando sua própria palavra-chave — nenhum dado sensível fica em texto claro no armazenamento.</p>
+                        <h3 data-i18n="tool.card.profiles.title">Perfis Salvos</h3>
+                        <p data-i18n="tool.card.profiles.body">Salve suas configurações para reutilizá-las sem redigitar tudo. Cada perfil é cifrado com AES-GCM-256 usando sua própria palavra-chave — nenhum dado sensível fica em texto claro no armazenamento.</p>
                         <ol class="steps-list">
-                            <li>Preencha os campos e clique em <strong>Salvar Perfil Atual</strong>.</li>
-                            <li>Dê um nome ao perfil (ex.: GitHub, Banco).</li>
-                            <li>Para usar, selecione o perfil no dropdown e clique em <strong>Carregar</strong>.</li>
-                            <li>Insira sua palavra-chave no modal — todos os campos são restaurados.</li>
+                            <li data-i18n="tool.card.profiles.step1">Preencha os campos e clique em Salvar Perfil Atual.</li>
+                            <li data-i18n="tool.card.profiles.step2">Dê um nome ao perfil (ex.: GitHub, Banco).</li>
+                            <li data-i18n="tool.card.profiles.step3">Para usar, selecione o perfil no dropdown e clique em Carregar.</li>
+                            <li data-i18n="tool.card.profiles.step4">Insira sua palavra-chave no modal — todos os campos são restaurados.</li>
                         </ol>
                         <div class="warning-box">
-                            <strong>Exportar e Importar</strong>
-                            <p>Use <strong>Exportar</strong> para baixar um <code>.json</code> com seus perfis cifrados e <strong>Importar</strong> para restaurá-los em outro dispositivo. O arquivo exportado não contém nenhuma informação em texto claro.</p>
+                            <strong data-i18n="tool.card.profiles.export.title">Exportar e Importar</strong>
+                            <p data-i18n="tool.card.profiles.export.body">Use Exportar para baixar um .json com seus perfis cifrados e Importar para restaurá-los em outro dispositivo. O arquivo exportado não contém nenhuma informação em texto claro.</p>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3>Segurança e Privacidade</h3>
-                        <p>Todo o processamento é feito <strong>exclusivamente no seu navegador</strong>. Nenhuma informação é enviada para servidores externos.</p>
+                        <h3 data-i18n="tool.card.security.title">Segurança e Privacidade</h3>
+                        <p data-i18n="tool.card.security.body">Todo o processamento é feito exclusivamente no seu navegador. Nenhuma informação é enviada para servidores externos.</p>
                         <div class="warning-box">
-                            <strong>Aviso sobre Iterações</strong>
-                            <p>Valores excessivamente altos (ex: milhões) podem causar lentidão ou travamento temporário. Para uso comum, valores de 1 a 1000 são instantâneos.</p>
+                            <strong data-i18n="tool.card.security.warning.title">Aviso sobre Iterações</strong>
+                            <p data-i18n="tool.card.security.warning.body">Valores excessivamente altos (ex: milhões) podem causar lentidão ou travamento temporário. Para uso comum, valores de 1 a 1000 são instantâneos.</p>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3>Dica de Uso</h3>
-                        <p>Use prefixo e sufixo para adicionar caracteres especiais e maiúsculas sem alterar o hash base.</p>
+                        <h3 data-i18n="tool.card.tip.title">Dica de Uso</h3>
+                        <p data-i18n="tool.card.tip.body">Use prefixo e sufixo para adicionar caracteres especiais e maiúsculas sem alterar o hash base.</p>
                         <div class="terminal-block">
                             <div class="terminal-header">
                                 <span class="terminal-dot" style="background:#FF4D6D"></span>
@@ -172,7 +186,7 @@
                             </div>
                             <pre class="terminal-body"><code>#MeuPrefixo + [hash gerado] + #MeuSufixo</code></pre>
                         </div>
-                        <p style="margin-top: 1rem;">Use uma seed mestra forte (frase longa) e um salt diferente para cada serviço.</p>
+                        <p style="margin-top: 1rem;" data-i18n="tool.card.tip.footer">Use uma seed mestra forte (frase longa) e um salt diferente para cada serviço.</p>
                     </div>
 
                 </div>
@@ -184,8 +198,8 @@
     <!-- STACK -->
     <section>
         <div class="container">
-            <span class="label">Stack</span>
-            <h2>Tecnologias</h2>
+            <span class="label" data-i18n="tool.section.stack.label">Stack</span>
+            <h2 data-i18n="tool.section.stack.heading">Tecnologias</h2>
             <div class="tags" style="margin-top: 1rem;">
                 <span class="badge badge--info">JavaScript</span>
                 <span class="badge badge--info">CryptoJS</span>
@@ -201,25 +215,25 @@
 
     <!-- Modal: Salvar perfil -->
     <dialog id="saveProfileDialog" aria-labelledby="saveDialogTitle">
-        <h3 id="saveDialogTitle">Salvar Perfil</h3>
-        <p class="dialog-description">Dê um nome para identificar esta configuração. A Palavra-Chave <strong>não</strong> é armazenada — ela será usada apenas para criptografar os demais campos.</p>
+        <h3 id="saveDialogTitle" data-i18n="tool.modal.save.title">Salvar Perfil</h3>
+        <p class="dialog-description" data-i18n="tool.modal.save.description">Dê um nome para identificar esta configuração. A Palavra-Chave não é armazenada — ela será usada apenas para criptografar os demais campos.</p>
         <div class="input-group">
-            <label for="profileNameInput">Nome do Perfil</label>
+            <label for="profileNameInput" data-i18n="tool.modal.save.label">Nome do Perfil</label>
             <input type="text" id="profileNameInput" placeholder="Ex.: GitHub, Microsoft, Banco…" maxlength="50" autocomplete="off" spellcheck="false">
         </div>
         <p id="saveProfileError" class="dialog-error" role="alert"></p>
         <div class="dialog-actions">
-            <button type="button" class="btn-primary" id="confirmSaveProfileBtn">Salvar</button>
-            <button type="button" class="btn-secondary" id="cancelSaveProfileBtn">Cancelar</button>
+            <button type="button" class="btn-primary" id="confirmSaveProfileBtn" data-i18n="tool.modal.save.btn">Salvar</button>
+            <button type="button" class="btn-secondary" id="cancelSaveProfileBtn" data-i18n="tool.modal.save.cancel">Cancelar</button>
         </div>
     </dialog>
 
     <!-- Modal: Carregar perfil (descriptografar) -->
     <dialog id="loadProfileDialog" aria-labelledby="loadDialogTitle">
-        <h3 id="loadDialogTitle">Carregar Perfil</h3>
-        <p class="dialog-description">Insira a Palavra-Chave usada ao salvar este perfil para descriptografá-lo.</p>
+        <h3 id="loadDialogTitle" data-i18n="tool.modal.load.title">Carregar Perfil</h3>
+        <p class="dialog-description" data-i18n="tool.modal.load.description">Insira a Palavra-Chave usada ao salvar este perfil para descriptografá-lo.</p>
         <div class="input-group">
-            <label for="decryptKeyInput">Palavra-Chave</label>
+            <label for="decryptKeyInput" data-i18n="tool.modal.load.label">Palavra-Chave</label>
             <div class="field-with-toggle">
                 <input type="password" id="decryptKeyInput" placeholder="Sua palavra-chave secreta" autocomplete="off" autocapitalize="off" spellcheck="false">
                 <button type="button" class="toggle-btn" data-target="decryptKeyInput" aria-label="Mostrar/ocultar palavra-chave"></button>
@@ -227,13 +241,14 @@
         </div>
         <p id="loadProfileError" class="dialog-error" role="alert"></p>
         <div class="dialog-actions">
-            <button type="button" class="btn-primary" id="confirmLoadProfileBtn">Descriptografar e Carregar</button>
-            <button type="button" class="btn-secondary" id="cancelLoadProfileBtn">Cancelar</button>
+            <button type="button" class="btn-primary" id="confirmLoadProfileBtn" data-i18n="tool.modal.load.btn">Descriptografar e Carregar</button>
+            <button type="button" class="btn-secondary" id="cancelLoadProfileBtn" data-i18n="tool.modal.load.cancel">Cancelar</button>
         </div>
     </dialog>
 
     <script src="crypto-js.min.js"></script>
     <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/js/site-chrome.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/almeidaoffsec/design-system@main/js/i18n.js"></script>
 </body>
 </html>
